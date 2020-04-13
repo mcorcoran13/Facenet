@@ -6,6 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import Normalizer
 from sklearn.svm import SVC
 from matplotlib import pyplot
+import pickle
 # load faces
 data = load('face-dataset.npz')
 testX_faces = data['arr_2']
@@ -25,6 +26,9 @@ testy = out_encoder.transform(testy)
 # fit model
 model = SVC(kernel='linear', probability=True)
 model.fit(trainX, trainy)
+# save model
+filename = 'face_classifier.sav'
+pickle.dump(model, open(filename, 'wb'))
 # test model on a random example from the test dataset
 selection = choice([i for i in range(testX.shape[0])])
 random_face_pixels = testX_faces[selection]
